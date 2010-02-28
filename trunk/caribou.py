@@ -29,8 +29,8 @@ import caribou.window as window
 import gettext
 import getopt
 import sys
-
 from caribou.morsetree import get_morse_tree
+from caribou.morse_window import MorseWindow
 
 _ = gettext.gettext
 
@@ -40,6 +40,7 @@ class Caribou:
     def __init__(self):
         self.__current_acc = None 
         self.mt = get_morse_tree()
+        self.morse_window = MorseWindow()
 
     def on_text_caret_moved(self, event):
         if self.__current_acc == event.source:
@@ -124,16 +125,19 @@ class Caribou:
             if self.mt.leaf():
                 print self.mt
                 self.mt.reset()
+            self.morse_window.refresh(self.mt.get_current_node())
 
         elif event.event_string == "Super_L":
             self.mt.dash()
             if self.mt.leaf():
                 print self.mt
                 self.mt.reset()
+            self.morse_window.refresh(self.mt.get_current_node())
 
         elif event.event_string == "Escape":
             print self.mt
             self.mt.reset()
+            self.morse_window.refresh(self.mt.get_current_node())
 
         # key binding for controlling the row column scanning
         if event.event_string == "Shift_R":
