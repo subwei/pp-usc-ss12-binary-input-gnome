@@ -48,7 +48,7 @@ class Caribou:
         self.vk = virtkey.virtkey()
 
     def send_unicode(self, key):
-        char = ord(key.decode('utf-8'))
+        char = ord(key.upper().decode('utf-8'))
         self.vk.press_unicode(char)
         self.vk.release_unicode(char)
 
@@ -130,7 +130,7 @@ class Caribou:
         #        print "--> LEAVE EDITABLE TEXT <--"
 
     def on_key_up(self, event):
-        if event.event_string == "Control_L":
+        if event.event_string == "Shift_L":
             self._lctrl_down = False
             if not self._select_state:
                 self.mt.dot()
@@ -142,7 +142,7 @@ class Caribou:
             elif self._select_state and not self._lsupr_down:
                 self._select_state = False
                             
-        elif event.event_string == "Control_R":
+        elif event.event_string == "Shift_R":
             self._lsupr_down = False    
             if not self._select_state:
                 self.mt.dash()
@@ -156,7 +156,7 @@ class Caribou:
 
     def on_key_down(self, event):
     
-        if event.event_string == "Control_L":
+        if event.event_string == "Shift_L":
             self._lctrl_down = True
             if self._lsupr_down == True:
                 self._select_state = True
@@ -165,7 +165,7 @@ class Caribou:
                 self.mt.reset()
                 self.morse_window.refresh(self.mt.get_current_node())
 
-        elif event.event_string == "Control_R":
+        elif event.event_string == "Shift_R":
             self._lsupr_down = True
             if self._lctrl_down == True:
                 self._select_state = True
@@ -178,7 +178,7 @@ class Caribou:
         if event.event_string == "Shift_R":
             # TODO: implement keyboard scanning
             pass 
-        elif event.event_string == "Escape":
+        elif event.event_string == "Control_R":
             if debug == True:
                 print "quitting ..."
             result = pyatspi.Registry.deregisterEventListener(self.on_text_caret_moved, "object:text-caret-moved")
