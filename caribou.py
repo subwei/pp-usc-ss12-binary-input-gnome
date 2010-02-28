@@ -138,7 +138,7 @@ class Caribou:
             else:
             	self.mt.dot()
                 if self.mt.leaf():
-                    print self.mt.current_node.parent
+                    print self.mt.current_node
                     self.mt.reset()
                 self.morse_window.refresh(self.mt.get_current_node())
 
@@ -151,7 +151,7 @@ class Caribou:
             else:
             	self.mt.dash()
                 if self.mt.leaf():
-                    print self.mt.current_node.parent
+                    print self.mt.current_node
                     self.mt.reset()
                 self.morse_window.refresh(self.mt.get_current_node())          
         
