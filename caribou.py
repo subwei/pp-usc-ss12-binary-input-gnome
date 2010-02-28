@@ -48,9 +48,10 @@ class Caribou:
         self.vk = virtkey.virtkey()
 
     def send_unicode(self, key):
-        char = ord(key.upper().decode('utf-8'))
-        self.vk.press_unicode(char)
-        self.vk.release_unicode(char)
+        if len(key) == 1:
+            char = ord(key.upper().decode('utf-8'))
+            self.vk.press_unicode(char)
+            self.vk.release_unicode(char)
 
     def on_text_caret_moved(self, event):
         if self.__current_acc == event.source:
@@ -135,7 +136,6 @@ class Caribou:
             if not self._select_state:
                 self.mt.dot()
                 if self.mt.leaf():
-                    print self.mt.current_node.value
                     self.send_unicode(self.mt.current_node.value)
                     self.mt.reset()
                 self.morse_window.refresh(self.mt.get_current_node())
@@ -147,7 +147,6 @@ class Caribou:
             if not self._select_state:
                 self.mt.dash()
                 if self.mt.leaf():
-                    print self.mt.current_node.value
                     self.send_unicode(self.mt.current_node.value)
                     self.mt.reset()
                 self.morse_window.refresh(self.mt.get_current_node())   
@@ -161,7 +160,6 @@ class Caribou:
             if self._lsupr_down == True:
                 self._select_state = True
                 self.send_unicode(self.mt.current_node.value)
-                print self.mt.current_node.value
                 self.mt.reset()
                 self.morse_window.refresh(self.mt.get_current_node())
 
@@ -170,7 +168,6 @@ class Caribou:
             if self._lctrl_down == True:
                 self._select_state = True
                 self.send_unicode(self.mt.current_node.value)
-                print self.mt.current_node.value
                 self.mt.reset()
                 self.morse_window.refresh(self.mt.get_current_node())       
         
