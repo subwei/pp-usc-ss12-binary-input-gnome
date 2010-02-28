@@ -10,15 +10,17 @@ class ColorHandler:
     	class __impl:
         	""" Implementation of the singleton interface within ColorHandler """
 
+		buttonList = dict() #key = letter of the button, value = the button itself
+
+		#is there some way to make these static? Python needs a static keyword.
 		e = gtk.Entry()
 		map = e.get_colormap()
-
-		buttonList = dict() #key = letter of the button, value = style of button (that style will use color colorOption)
 		morseLeftNodeColor = map.alloc_color("#c1c1f0")
 		morseRightNodeColor = map.alloc_color("#f0a1a1")
 		standardColor = map.alloc_color("#dddddd")
 		morseCurrentNodeColor = map.alloc_color("#a1f0a1")
-		colorMap = {ColorOptions.standard: standardColor, ColorOptions.morseLeftNode: morseLeftNodeColor, ColorOptions.morseRightNode: morseRightNodeColor, ColorOptions.morseCurrentNode: morseCurrentNodeColor}  
+
+		colorMap = {ColorOptions.standard: standardColor, ColorOptions.morseLeftNode: morseLeftNodeColor, ColorOptions.morseRightNode: morseRightNodeColor, ColorOptions.morseCurrentNode: morseCurrentNodeColor}  #Map linking ColorOptions enum to the actual color they represent
 
 		def addButton(self, button, colorOption):
 			label = button.get_label()
@@ -27,9 +29,7 @@ class ColorHandler:
 
 		def setColorFromEncodedChar(self, encodedchar, colorOption):
 			char = unichr(encodedchar)
-			button = self.buttonList.get(char)
-			if button != None:
-				self.setColor(self.buttonList.get(char), colorOption)
+			setColorFromChar(char, colorOption)
 
 		def setColorFromChar(self, char, colorOption):
 			button = self.buttonList.get(char)
