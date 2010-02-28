@@ -4,4 +4,4 @@ In normal Morse Code, all punctuation requires 6 dots/dashes to reach (for insta
 
 As such, we have replaced some of the less useful 4- or 5-dot/dash characters (namely, the accented ones - characters with umlauts, etc.) with punctuation characters. This is, admittedly, doing to Morse Code what Internet Explorer does to browsers - but we're using Morse Code in a very different manner than Samuel Morse intended, so we have to accept that we need to change it in order to make it more useful for our purpose. Following is a binary tree of morse code with our changes highlighted in red:
 
-[http://img534.imageshack.us/img534/2766/morsechangescopy.gif]
+[http://img20.imageshack.us/img20/6598/morsecodedecisiontree.png]
