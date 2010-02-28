@@ -82,11 +82,25 @@ def get_morse_tree():
     node_8 = TreeNode("8")
     node_9 = TreeNode("9")
 
-    # weird characters
-    node_u_umlaut = TreeNode("ü")
-    node_a_umlaut = TreeNode("ä")
-    node_o_umlaut = TreeNode("ö")
-    node_ch = TreeNode("ch")
+    # punctuation
+    node_plus = TreeNode("+")
+    node_dash = TreeNode("-")
+    node_apostrophe = TreeNode("'")
+    node_quote = TreeNode("\"")
+    node_exclamation = TreeNode("!")
+    node_question = TreeNode("?")
+    node_semicolon = TreeNode(";")
+    node_colon = TreeNode(":")
+    node_comma = TreeNode(",")
+    node_period = TreeNode(".")
+    node_underscore = TreeNode("_")
+    node_equals = TreeNode("=")
+    node_slash = TreeNode("/")
+    node_backslash = TreeNode("\\")
+    node_at = TreeNode("@")
+    node_dollar = TreeNode("$")
+    node_open_parentheses = TreeNode("(")
+    node_close_parentheses = TreeNode(")")
 
     # first level
     root.left = node_e
@@ -95,61 +109,87 @@ def get_morse_tree():
     # second level
     node_e.left = node_i
     node_e.right = node_a
-    node_e.parent = root
 
     node_t.left = node_n
     node_t.right = node_m
-    node_t.parent = root
 
     # third level
     node_i.left = node_s
     node_i.right = node_u
-    node_i.parent = node_e
 
     node_a.left = node_r
     node_a.right = node_w
-    node_a.parent = node_e
 
     node_n.left = node_d
     node_n.right = node_k
-    node_n.parent = node_t
 
     node_m.left = node_g
     node_m.right = node_o
-    node_m.parent = node_t
 
     # fourth level
     node_s.left = node_h
     node_s.right = node_v
-    node_s.parent = node_i
 
     node_u.left = node_f
-    node_u.right = node_u_umlaut
-    node_u.parent = node_i
+    node_u.right = node_quote
 
     node_r.left = node_l
-    node_r.right = node_a_umlaut
-    node_r.parent = node_a
+    node_r.right = node_apostrophe
 
     node_w.left = node_p
     node_w.right = node_j
-    node_w.parent = node_a
 
     node_d.left = node_b
     node_d.right = node_x
-    node_d.parent = node_n
 
     node_k.left = node_c
     node_k.right = node_y
-    node_k.parent = node_n
 
     node_g.left = node_z
     node_g.right = node_q
-    node_g.parent = node_m
 	
-    node_o.left = node_o_umlaut
-    node_o.right = node_ch
-    node_o.parent = node_m
+    node_o.left = node_comma
+    node_o.right = node_period
+
+    #fifth level
+    node_h.left = node_5
+    node_h.right = node_4
+
+    node_v.left = node_underscore
+    node_v.right = node_3
+
+    #node_quote.left = [nothing]
+    node_quote.right = node_2
+	
+    node_apostrophe.left = node_plus
+    node_apostrophe.right = node_dash
+
+    #node_j.left = [nothing]
+    node_j.right = node_1
+
+    node_b.left = node_6
+    node_b.right = node_equals
+	
+    node_x.left = node_slash
+    node_x.right = node_backslash
+
+    node_c.left = node_question
+    node_c.right = node_exclamation
+
+    node_y.left = node_open_parentheses
+    node_y.right = node_close_parentheses
+
+    node_z.left = node_7
+    node_z.right = node_at
+
+    node_q.left = node_colon
+    node_q.right = node_semicolon
+
+    node_comma.left = node_8
+    node_comma.right = node_dollar
+
+    node_period.left = node_9
+    node_period.right = node_0
 
     return MorseTree(root)
 
