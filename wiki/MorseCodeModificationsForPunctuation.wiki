@@ -3,3 +3,17 @@ So Binary Caribou uses a slightly modified version of Morse Code.
 In normal Morse Code, all punctuation requires 6 dots/dashes to reach (for instance, "!" is -.-.--) because really, punctuation isn't that important to convey in speech (and in general, Morse Code is used to replace speech). The thing is, punctuation is important on keyboards!
 
 As such, we have replaced some of the less useful 5-dot/dash characters (namely, the accented ones - characters with umlauts, etc.) with punctuation characters. Following is a list of the new morse code definitions for punctuation:
+
+.-.-. = +
+.-.-- = -
+
+.-... = '
+.-..- = "
+
+-.-.- = !
+-.-.. = ?
+
+--.-. = ;
+--.-- = ,
+
+...-. = .
