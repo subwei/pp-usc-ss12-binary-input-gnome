@@ -193,7 +193,7 @@ class Caribou:
                     self._firstkeydowntime = time.time()
                 else:
                     twokeytime = time.time() - self._firstkeydowntime
-                    if twokeytime < 1:
+                    if twokeytime < 0.5:
                         self._select_state = True
                         self.send_unicode(self.mt.current_node.value)
                         self.mt.reset()
@@ -207,7 +207,7 @@ class Caribou:
                     self._firstkeydowntime = time.time()
                 else:
                     twokeytime = time.time() - self._firstkeydowntime
-                    if twokeytime < 1:
+                    if twokeytime < 0.5:
                         self._select_state = True
                         self.send_unicode(self.mt.current_node.value)
                         self.mt.reset()
