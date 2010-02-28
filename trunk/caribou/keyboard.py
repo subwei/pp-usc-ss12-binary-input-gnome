@@ -56,6 +56,10 @@ class KeyboardPreferences:
         layout_combo.pack_start(cell, True)
         layout_combo.add_attribute(cell, 'text', 0)
 
+		# Testing stuff here
+        binary_input_checkbutton = builder.get_object("checkbutton_binaryinput")
+        binary_input_checkbutton.connect("toggled", self.binary_input_handler)
+
         for kbddef in keyboards.kbds:
             layout_combo.append_text(kbddef)
 
@@ -92,6 +96,12 @@ class KeyboardPreferences:
         kbdname = combobox.get_active_text()
         if kbdname:
             client.set_string("/apps/caribou/osk/layout", kbdname)
+
+    # Switches binary mode when the check box is toggled.	
+    def binary_input_handler(self, widget, data=None):
+	    #do stuff here.
+        #binary = not binary
+		print "binary input checkbutton toggled"
 
 class CaribouKeyboard(gtk.Frame):
     __gtype_name__ = "CaribouKeyboard"
@@ -204,7 +214,6 @@ class CaribouKeyboard(gtk.Frame):
 
     def get_layout(self):
         return self._kbd_name()
-
 
 
 if __name__ == "__main__":
