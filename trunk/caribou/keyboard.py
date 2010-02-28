@@ -163,7 +163,7 @@ class CaribouKeyboard(gtk.Frame):
             self.vk.press_unicode(char)
             self.vk.release_unicode(char)
 	    #let the colorHandler know that the button has been pressed
-	    self.colorHandler.setColor(char, colorhandler.ColorOptions.test)
+	    self.colorHandler.setColorFromEncodedChar(char, colorhandler.ColorOptions.test)
 
         def _send_keysym(self, widget, char):
             self.vk.press_keysym(char)
