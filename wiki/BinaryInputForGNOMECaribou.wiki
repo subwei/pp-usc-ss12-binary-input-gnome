@@ -14,7 +14,13 @@
 
 = Overview =
 
+The *Binary Input for GNOME Caribou (BIFGC)* project is intended to combine binary input interface with a morse code functionality.  Unlike a usual On-screen keyboard where a user is expected to mouse over the keys and click them, BIFGC allows a user to input all 26 alphabetic characters with the use of only two keys.  It accomplishes this by mimicking a sort of morse code 
+
+
 Add your content here.  Format your content with:
   * Text in *bold* or _italic_
   * Headings, paragraphs, and lists
   * Automatic links to other wiki pages
+
+
+= Technical Overview =
