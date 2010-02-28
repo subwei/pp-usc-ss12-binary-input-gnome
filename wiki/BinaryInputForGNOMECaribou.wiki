@@ -30,7 +30,12 @@ Our project uses preexisting keyboard listeners already used in
 
 == PUT A PICTURE OF THE PROGRAM HERE ==
 
-Building off of the pre-existing [http://live.gnome.org/Caribou Caribou] keyboard, we added an automatic color-coding feature that helps illustrate to the user what they must type in order to get to a letter.  This is implemented with [http://www.gtk.org/ GTK+]'s color options for GUI components.
+Building off of the pre-existing [http://live.gnome.org/Caribou Caribou] keyboard, we added an automatic color-coding feature that helps illustrate to the user what they must type in order to get to a letter.  This is implemented with [http://www.gtk.org/ GTK+]'s color options for GUI components.  As the user enters dots and dashes, the keyboard's coloring changes in the following manner:
+
+  # The <b><font color = "green">Green</font></b> key represents the current character you're at in the decision tree.  If the user presses both buttons at this time, this character will be written to the target output.
+  # <b><font color = "blue">Blue</font></b> keys represent the characters that require at least another dot input to get to.
+  # <b><font color = "red">Red</font></b> keys represent the characters that require at least another dash input to get to.
+  # <b><font color = "gray">Gray</font></b> keys represent the characters already passed by in the decision tree and cannot be typed until the user inputs their next character.
 
 = Future Improvements =
 
