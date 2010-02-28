@@ -26,9 +26,11 @@ import keyboard
 import morse_window
 import treeWindow
 import opacity
+import colorhandler
     
 class CaribouWindow(gtk.Window):
     __gtype_name__ = "CaribouWindow"
+    colorHandler = colorhandler.ColorHandler()
 
     def __init__(self, default_placement=None, 
                  min_alpha=1.0, max_alpha=1.0, max_distance=100):
@@ -44,6 +46,7 @@ class CaribouWindow(gtk.Window):
         # decision tree widget
         #label = gtk.Label("Hello World")
         #label.set_alignment(0, 0)
+        self.colorHandler = colorhandler.ColorHandler()
         self.tw = treeWindow.TreeWindow()
         self._hbox.pack_start(self.tw)
         #label.show()
@@ -55,9 +58,38 @@ class CaribouWindow(gtk.Window):
         self._entry_location = gdk.Rectangle()
         self._default_placement = default_placement or \
             CaribouWindowPlacement()
-        
-       
-        
+
+    def update(self, node):
+        self.tw.refresh(node)
+        self.colorKeys(node)
+
+    def colorKeys(self, startingNode):
+        self.colorHandler.colorAll(colorhandler.ColorOptions.standard) #Reset all colors to gray
+        self.colorHandler.setColorFromChar(startingNode.value.lower(), colorhandler.ColorOptions.morseCurrentNode) #color our current node in lowercase
+        self.colorHandler.setColorFromChar(startingNode.value.capitalize(), colorhandler.ColorOptions.morseCurrentNode) #color our current node in lowercase
+        leftNode = startingNode.left
+        rightNode = startingNode.right
+        if leftNode != None:
+            self.colorHandler.setColorFromChar(leftNode.value.lower(), colorhandler.ColorOptions.morseLeftNode) #color our direct descendant in lowercase
+            self.colorHandler.setColorFromChar(leftNode.value.capitalize(), colorhandler.ColorOptions.morseLeftNode) #color our direct descendant in uppercase
+            self.recursiveColorNodes(leftNode, colorhandler.ColorOptions.morseLeftNode) #and color its descendants
+        if rightNode != None:
+            self.colorHandler.setColorFromChar(rightNode.value.lower(), colorhandler.ColorOptions.morseRightNode) #color our direct descendant in lowercase
+            self.colorHandler.setColorFromChar(rightNode.value.capitalize(), colorhandler.ColorOptions.morseRightNode) #color our direct descendant in uppercase
+            self.recursiveColorNodes(rightNode, colorhandler.ColorOptions.morseRightNode) #and color its descendants
+
+    def recursiveColorNodes(self, startingNode, color):
+        if startingNode.left != None: #If we have an instantiated node to go to
+            self.colorHandler.setColorFromChar(startingNode.left.value.lower(), color)
+            self.colorHandler.setColorFromChar(startingNode.left.value.capitalize(), color)
+            self.recursiveColorNodes(startingNode.left, color)
+        if startingNode.right != None: #If we have an instantiated node to go to
+            self.colorHandler.setColorFromChar(startingNode.right.value.lower(), color)
+            self.colorHandler.setColorFromChar(startingNode.right.value.capitalize(), color)
+            self.recursiveColorNodes(startingNode.right, color)
+
+
+
     def set_cursor_location(self, cursor_location):
         self._cursor_location = cursor_location
         self._update_position()
@@ -74,7 +106,7 @@ class CaribouWindow(gtk.Window):
         self.tw.refresh(currentNode)
         if currentNode != None:
             self.colorKeys(currentNode)
-	          
+              
             if currentNode.left != None:
                 self.morseLeft.set_label(currentNode.left.value)
             else:
