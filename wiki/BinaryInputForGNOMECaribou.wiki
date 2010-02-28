@@ -5,6 +5,9 @@
 [http://live.gnome.org/Caribou Caribou] is a text entry and UI navigation application being developed as an alternative to the GNOME On-screen Keyboard. The overarching goal for Caribou is to create a usable solution for people whose primary way of accessing a computer is a switch device.  Our goal for this project in this competition is to allow a user to use a binary input, such as a button, to interface with Caribou rather than with a mouse.
 
 = Team =
+
+[http://img692.imageshack.us/img692/3808/dragonsi.jpg]
+
   * *John Kim* (kim19 at usc dot edu)
   * *Justin Lei* (justinyl at usc dot edu)
   * *Matthew Michihara* (michihar at usc dot edu)
