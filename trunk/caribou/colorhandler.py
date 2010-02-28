@@ -4,7 +4,7 @@ class ColorOptions: #This is basically just an enum
 	standard = 0
 	morseLeftNode = 1
 	morseRightNode = 2
-	test = 3
+	morseCurrentNode = 3
 
 class ColorHandler:
     	class __impl:
@@ -15,10 +15,10 @@ class ColorHandler:
 
 		buttonList = dict() #key = letter of the button, value = style of button (that style will use color colorOption)
 		morseLeftNodeColor = map.alloc_color("#c1c1f0")
-		morseRightNodeColor = map.alloc_color("#f07171")
+		morseRightNodeColor = map.alloc_color("#f0a1a1")
 		standardColor = map.alloc_color("#dddddd")
-		testColor = map.alloc_color("#ff00ff")
-		colorMap = {ColorOptions.standard: standardColor, ColorOptions.morseLeftNode: morseLeftNodeColor, ColorOptions.morseRightNode: morseRightNodeColor, ColorOptions.test: testColor}  
+		morseCurrentNodeColor = map.alloc_color("#a1f0a1")
+		colorMap = {ColorOptions.standard: standardColor, ColorOptions.morseLeftNode: morseLeftNodeColor, ColorOptions.morseRightNode: morseRightNodeColor, ColorOptions.morseCurrentNode: morseCurrentNodeColor}  
 
 		def addButton(self, button, colorOption):
 			label = button.get_label()
@@ -27,7 +27,14 @@ class ColorHandler:
 
 		def setColorFromEncodedChar(self, encodedchar, colorOption):
 			char = unichr(encodedchar)
-			self.setColor(self.buttonList.get(char), colorOption)
+			button = self.buttonList.get(char)
+			if button != None:
+				self.setColor(self.buttonList.get(char), colorOption)
+
+		def setColorFromChar(self, char, colorOption):
+			button = self.buttonList.get(char)
+			if button != None:
+				self.setColor(self.buttonList.get(char), colorOption)
 
 		def setColor(self, button, colorOption):
 			button.modify_bg(gtk.STATE_NORMAL, self.colorMap.get(colorOption))
