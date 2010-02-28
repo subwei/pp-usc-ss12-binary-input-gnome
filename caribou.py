@@ -43,6 +43,7 @@ class Caribou:
         self.morse_window = MorseWindow()
         self._lctrl_down = False
         self._lsupr_down = False
+        self._select_state = False
 
     def on_text_caret_moved(self, event):
         if self.__current_acc == event.source:
@@ -123,37 +124,44 @@ class Caribou:
 
     def on_key_up(self, event):
         if event.event_string == "Control_L":
-            self._lctrl_down = False                
+            self._lctrl_down = False
+            if not self._select_state:
+                self.mt.dot()
+                if self.mt.leaf():
+                    print self.mt.current_node
+                    self.mt.reset()
+                self.morse_window.refresh(self.mt.get_current_node())
+            elif self._select_state and not self._lsupr_down:
+                self._select_state = False
+                            
         elif event.event_string == "Super_L":
-            self._lsupr_down = False                
+            self._lsupr_down = False    
+            if not self._select_state:
+                self.mt.dash()
+                if self.mt.leaf():
+                    print self.mt.current_node
+                    self.mt.reset()
+                self.morse_window.refresh(self.mt.get_current_node())   
+            elif self._select_state and not self._lctrl_down:
+                self._select_state = False          
 
     def on_key_down(self, event):
     
         if event.event_string == "Control_L":
             self._lctrl_down = True
             if self._lsupr_down == True:
-                print self.mt.current_node.parent
+                self._select_state = True
+                print self.mt.current_node
                 self.mt.reset()
-                self.morse_window.refresh(self.mt.get_current_node())
-            else:
-            	self.mt.dot()
-                if self.mt.leaf():
-                    print self.mt.current_node
-                    self.mt.reset()
                 self.morse_window.refresh(self.mt.get_current_node())
 
         elif event.event_string == "Super_L":
             self._lsupr_down = True
             if self._lctrl_down == True:
-                print self.mt.current_node.parent
+                self._select_state = True
+                print self.mt.current_node
                 self.mt.reset()
-                self.morse_window.refresh(self.mt.get_current_node())     
-            else:
-            	self.mt.dash()
-                if self.mt.leaf():
-                    print self.mt.current_node
-                    self.mt.reset()
-                self.morse_window.refresh(self.mt.get_current_node())          
+                self.morse_window.refresh(self.mt.get_current_node())       
         
         # key binding for controlling the row column scanning
         if event.event_string == "Shift_R":
@@ -184,6 +192,9 @@ class Caribou:
                 else:
                     print "FAIL"
             result = pyatspi.Registry.deregisterKeystrokeListener(self.on_key_down, mask=None, kind=(pyatspi.KEY_PRESSED_EVENT,))
+            if debug == True:
+                print "deregisterKeystrokeListener"
+            result = pyatspi.Registry.deregisterKeystrokeListener(self.on_key_up, mask=None, kind=(pyatspi.KEY_RELEASED_EVENT,))
             if debug == True:
                 print "deregisterKeystrokeListener"
             gtk.main_quit()
