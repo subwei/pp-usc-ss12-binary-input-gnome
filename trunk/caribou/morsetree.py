@@ -27,6 +27,9 @@ class MorseTree:
 		    return True
 	        else:
 		    return False
+	
+	def get_current_node(self):
+		return self.current_node
 
 	def __str__(self):
 		return self.current_node.value
