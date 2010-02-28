@@ -37,7 +37,7 @@ To enter a newline, hold the dot key and tap the dash key. Each tap will output 
 Our project uses preexisting keyboard listeners already used in 
 [http://live.gnome.org/Caribou Caribou].  We added mappings to the left Ctrl key and the Super key (the Windows or Apple key) to simulate choosing between a dot or dash in morse code.
 
-[http://img130.imageshack.us/img130/8931/keyboardv.png]
+[http://img200.imageshack.us/img200/7048/keyboardus.png]
 
 Building off of the pre-existing [http://live.gnome.org/Caribou Caribou] keyboard, we added an automatic color-coding feature that helps illustrate to the user what they must type in order to get to a letter.  This is implemented with [http://www.gtk.org/ GTK+]'s color options for GUI components.  As the user enters dots and dashes, the keyboard's coloring changes in the following manner:
 
