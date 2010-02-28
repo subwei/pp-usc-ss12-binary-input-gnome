@@ -29,6 +29,7 @@ import caribou.window as window
 import gettext
 import getopt
 import sys
+import virtkey
 from caribou.morsetree import get_morse_tree
 from caribou.morse_window import MorseWindow
 
@@ -44,6 +45,12 @@ class Caribou:
         self._lctrl_down = False
         self._lsupr_down = False
         self._select_state = False
+        self.vk = virtkey.virtkey()
+
+    def send_unicode(self, key):
+        char = ord(key.decode('utf-8'))
+        self.vk.press_unicode(char)
+        self.vk.release_unicode(char)
 
     def on_text_caret_moved(self, event):
         if self.__current_acc == event.source:
@@ -128,18 +135,20 @@ class Caribou:
             if not self._select_state:
                 self.mt.dot()
                 if self.mt.leaf():
-                    print self.mt.current_node
+                    print self.mt.current_node.value
+                    self.send_unicode(self.mt.current_node.value)
                     self.mt.reset()
                 self.morse_window.refresh(self.mt.get_current_node())
             elif self._select_state and not self._lsupr_down:
                 self._select_state = False
                             
-        elif event.event_string == "Super_L":
+        elif event.event_string == "Control_R":
             self._lsupr_down = False    
             if not self._select_state:
                 self.mt.dash()
                 if self.mt.leaf():
-                    print self.mt.current_node
+                    print self.mt.current_node.value
+                    self.send_unicode(self.mt.current_node.value)
                     self.mt.reset()
                 self.morse_window.refresh(self.mt.get_current_node())   
             elif self._select_state and not self._lctrl_down:
@@ -151,15 +160,17 @@ class Caribou:
             self._lctrl_down = True
             if self._lsupr_down == True:
                 self._select_state = True
-                print self.mt.current_node
+                self.send_unicode(self.mt.current_node.value)
+                print self.mt.current_node.value
                 self.mt.reset()
                 self.morse_window.refresh(self.mt.get_current_node())
 
-        elif event.event_string == "Super_L":
+        elif event.event_string == "Control_R":
             self._lsupr_down = True
             if self._lctrl_down == True:
                 self._select_state = True
-                print self.mt.current_node
+                self.send_unicode(self.mt.current_node.value)
+                print self.mt.current_node.value
                 self.mt.reset()
                 self.morse_window.refresh(self.mt.get_current_node())       
         
@@ -167,7 +178,7 @@ class Caribou:
         if event.event_string == "Shift_R":
             # TODO: implement keyboard scanning
             pass 
-        elif event.event_string == "Control_R":
+        elif event.event_string == "Escape":
             if debug == True:
                 print "quitting ..."
             result = pyatspi.Registry.deregisterEventListener(self.on_text_caret_moved, "object:text-caret-moved")
