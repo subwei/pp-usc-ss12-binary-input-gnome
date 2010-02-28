@@ -17,7 +17,7 @@ class ColorHandler:
 		map = e.get_colormap()
 		morseLeftNodeColor = map.alloc_color("#c1c1f0")
 		morseRightNodeColor = map.alloc_color("#f0a1a1")
-		standardColor = map.alloc_color("#dddddd")
+		standardColor = map.alloc_color("#e2dbd1")
 		morseCurrentNodeColor = map.alloc_color("#a1f0a1")
 
 		colorMap = {ColorOptions.standard: standardColor, ColorOptions.morseLeftNode: morseLeftNodeColor, ColorOptions.morseRightNode: morseRightNodeColor, ColorOptions.morseCurrentNode: morseCurrentNodeColor}  #Map linking ColorOptions enum to the actual color they represent
