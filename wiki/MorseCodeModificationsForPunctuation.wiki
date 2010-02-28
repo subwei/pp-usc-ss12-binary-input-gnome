@@ -8,8 +8,6 @@ As such, we have replaced some of the less useful 4- or 5-dot/dash characters (n
 
 .-.-- = -
 
-.-..- = "
-
 -.-.- = !
 
 -.-.. = ?
@@ -17,6 +15,8 @@ As such, we have replaced some of the less useful 4- or 5-dot/dash characters (n
 --.-. = ;
 
 --.-- = :
+
+..-- = "
 
 .-.- = '
 
