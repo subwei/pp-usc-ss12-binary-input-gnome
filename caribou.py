@@ -39,9 +39,7 @@ class Caribou:
     def __init__(self):
         self.__current_acc = None 
         self._morse = Morse()
-
-    def register(self, function):
-        self._morse.registerListener(function)
+        self._morse.registerListener(caribouwindow.update)
 
     def on_text_caret_moved(self, event):
         if self.__current_acc == event.source:
@@ -193,17 +191,15 @@ if __name__ == "__main__":
             print "caribou 0.0.2"
             sys.exit(0)
 
+    caribouwindow = window.CaribouWindowEntry()
+    caribouwindow.hide_all()
+
     caribou = Caribou()
     pyatspi.Registry.registerEventListener(caribou.on_focus, "object:state-changed:focused")
     pyatspi.Registry.registerEventListener(caribou.on_focus, "focus")
     pyatspi.Registry.registerEventListener(caribou.on_text_caret_moved, "object:text-caret-moved")
     pyatspi.Registry.registerKeystrokeListener(caribou.on_key_down, mask=None, kind=(pyatspi.KEY_PRESSED_EVENT,))
     pyatspi.Registry.registerKeystrokeListener(caribou.on_key_up, mask=None, kind=(pyatspi.KEY_RELEASED_EVENT,))
-
     # TODO: move text entry detection to its own file
 
-    caribouwindow = window.CaribouWindowEntry()
-    caribouwindow.hide_all()
-    caribou.register(caribouwindow.update)
- 
     gtk.main()
