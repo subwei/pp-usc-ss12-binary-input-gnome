@@ -121,12 +121,10 @@ class Caribou:
         #        print "--> LEAVE EDITABLE TEXT <--"
 
     def on_key_up(self, event):
-        if binary == True:
-            self._morse.key_up(event)
+        self._morse.key_up(event)
 
     def on_key_down(self, event):
-        if binary == True:
-            self._morse.key_down(event)
+        self._morse.key_down(event)
         # key binding for controlling the row column scanning
         if event.event_string == "Shift_R":
             # TODO: implement keyboard scanning
@@ -186,9 +184,6 @@ if __name__ == "__main__":
     for opt, val in options:
         if opt in ("-d", "--debug"):
             debug = True
-
-        if opt in ("-b", "--binary"):
-            binary = True
 
         if opt in ("-h", "--help"):
             usage()

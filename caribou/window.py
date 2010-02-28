@@ -23,7 +23,6 @@ import gconf
 import gtk
 import gtk.gdk as gdk
 import keyboard
-import morse_window
 import treeWindow
 import opacity
 import colorhandler

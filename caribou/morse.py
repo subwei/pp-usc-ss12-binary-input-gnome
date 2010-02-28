@@ -4,8 +4,6 @@ import virtkey
 import time
 from morsetree import get_morse_tree
 
-binary = True
-
 class Morse:
     def  __init__(self):
         self._tree_update_callback = None
@@ -17,6 +15,7 @@ class Morse:
         self._backspace = False
         self._newline = False
         self.vk = virtkey.virtkey()
+        self._morse_enabled = True
 
     def send_unicode(self, key):
         if len(key) == 1:
@@ -27,6 +26,12 @@ class Morse:
     def registerListener(self, callback):
         self._tree_update_callback = callback
 
+    def enable(self):
+        self._morse_enabled = True
+
+    def disable(self):
+        self._morse_enabled = False
+
     def key_up(self, event):
         """Listens for when the dot button (l-shift) and the dash button
         (r-shift) are released.
@@ -34,7 +39,7 @@ class Morse:
         The morse code tree is traversed on button releases, and leaf nodes
         of the tree are automatically selected.
         """
-        if binary:
+        if self._morse_enabled == True:
             if event.event_string == "Shift_L":
                 self._dot_down = False
                 if self._backspace == True:
@@ -79,7 +84,7 @@ class Morse:
         If both the dot and the dash buttons are pressed, the current 
         character of the morse code tree is selected and the tree is reset.
         """
-        if binary:
+        if self._morse_enabled == True:
             if event.event_string == "Shift_L":
                 self._dot_down = True
                 #caribouwindow.tw.refresh(self.mt.get_current_node())
