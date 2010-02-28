@@ -20,8 +20,6 @@ The *Binary Input for GNOME Caribou (BIFGC)* project is intended to combine bina
 
 [http://live.gnome.org/Caribou Caribou] uses the [http://www.gtk.org/ GTK+] toolkit which allows a user to create "graphical user interfaces which boasts cross platform compatibility and an easy to use API."  [http://live.gnome.org/Caribou Caribou] is written in the [http://www.python.org/ Python Programming Language] while [http://www.gtk.org/ GTK+] is written in C.  However, [http://www.gtk.org/ GTK+] has bindings to languages such as [http://www.python.org/ Python] which allows us to use it with [http://live.gnome.org/Caribou Caribou] for all of our additions that make up BIFGC.
 
-[http://ihumanable.com/blog/wp-content/uploads/2009/12/erlang-gedit.png]
-
 = Future Improvements =
 
   # Replace On-screen keyboard with larger, more detailed decision tree.
