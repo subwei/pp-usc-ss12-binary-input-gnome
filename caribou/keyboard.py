@@ -100,10 +100,10 @@ class CaribouKeyboard(gtk.Frame):
 
     class _KeyboardLayout:
         vk = virtkey.virtkey()
+	colorHandler = colorhandler.ColorHandler()
 
-        def __init__(self, kdbdef, colorHandler):
+        def __init__(self, kdbdef):
 
-	    self.colorHandler = colorHandler;
             self.layers, self.switch_layer_buttons = [], []
             for layer in kdbdef.layers:
                 layervbox = gtk.VBox(homogeneous = True)
@@ -132,7 +132,7 @@ class CaribouKeyboard(gtk.Frame):
 
                                 char = ord(key.decode('utf-8'))
                                 button.connect("clicked", self._send_unicode, char)
-				colorHandler.addButton(button, colorhandler.ColorOptions.standard);
+				self.colorHandler.addButton(button, colorhandler.ColorOptions.standard);
                         elif isinstance(key, tuple):
                             button = gtk.Button(key[0])
                             button.set_use_underline(False)
@@ -143,11 +143,11 @@ class CaribouKeyboard(gtk.Frame):
                                 # set layer name on button and save to process later
                                 button.set_name(key[1])
                                 self.switch_layer_buttons.append(button)
-				#colorHandler.addButton(button, colorhandler.ColorOptions.standard) we don't color this currently
+				#self.colorHandler.addButton(button, colorhandler.ColorOptions.standard) we don't color this currently
                             else:
                                 # regular key
                                 button.connect("clicked", self._send_keysym, key[1])				
-				#colorHandler.addButton(button, colorhandler.ColorOptions.test) we don't color this currently
+				#self.colorHandler.addButton(button, colorhandler.ColorOptions.test) we don't color this currently
 			
                         else:
                             pass # TODO: throw error here
@@ -162,8 +162,8 @@ class CaribouKeyboard(gtk.Frame):
         def _send_unicode(self, widget, char):
             self.vk.press_unicode(char)
             self.vk.release_unicode(char)
-	    #let the colorHandler know that the button has been pressed
-	    self.colorHandler.setColorFromEncodedChar(char, colorhandler.ColorOptions.test)
+	    #test the colorHandler by coloring the button that just got pressed
+	    #self.colorHandler.setColorFromEncodedChar(char, colorhandler.ColorOptions.test)
 
         def _send_keysym(self, widget, char):
             self.vk.press_keysym(char)
@@ -176,7 +176,7 @@ class CaribouKeyboard(gtk.Frame):
         # FIXME: load from stored value, default to locale appropriate
         kbdloc = "caribou.keyboards.qwerty"
         __import__(kbdloc)
-        kbdlayout = self._KeyboardLayout(sys.modules[kbdloc], self.colorHandler)
+        kbdlayout = self._KeyboardLayout(sys.modules[kbdloc])
         self._set_kbd_layout(kbdlayout)
         # end FIXME
 
