@@ -8,6 +8,8 @@ class TreeNode:
         self.left = None
         self.right = None
         self.parent = None
+    def __str__(self):
+        return self.value
 
 class MorseTree:
     def __init__(self, root):
@@ -93,47 +95,61 @@ def get_morse_tree():
     # second level
     node_e.left = node_i
     node_e.right = node_a
+    node_e.parent = root
 
     node_t.left = node_n
     node_t.right = node_m
+    node_t.parent = root
 
     # third level
     node_i.left = node_s
     node_i.right = node_u
+    node_i.parent = node_e
 
     node_a.left = node_r
     node_a.right = node_w
+    node_a.parent = node_e
 
     node_n.left = node_d
     node_n.right = node_k
+    node_n.parent = node_t
 
     node_m.left = node_g
     node_m.right = node_o
+    node_m.parent = node_t
 
     # fourth level
     node_s.left = node_h
     node_s.right = node_v
+    node_s.parent = node_i
 
     node_u.left = node_f
     node_u.right = node_u_umlaut
+    node_u.parent = node_i
 
     node_r.left = node_l
     node_r.right = node_a_umlaut
+    node_r.parent = node_a
 
     node_w.left = node_p
     node_w.right = node_j
+    node_w.parent = node_a
 
     node_d.left = node_b
     node_d.right = node_x
+    node_d.parent = node_n
 
     node_k.left = node_c
     node_k.right = node_y
+    node_k.parent = node_n
 
     node_g.left = node_z
     node_g.right = node_q
-
+    node_g.parent = node_m
+	
     node_o.left = node_o_umlaut
     node_o.right = node_ch
+    node_o.parent = node_m
 
     return MorseTree(root)
 
