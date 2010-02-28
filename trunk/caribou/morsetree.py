@@ -40,7 +40,7 @@ class MorseTree:
         return self.current_node.value
 
 def get_morse_tree():
-    root = TreeNode("")
+    root = TreeNode(" ")
 
     # normal alphabet
     node_a = TreeNode("a")
