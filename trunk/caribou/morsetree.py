@@ -7,6 +7,7 @@ class TreeNode:
         self.value = value
         self.left = None
         self.right = None
+        self.parent = None
 
 class MorseTree:
     def __init__(self, root):
