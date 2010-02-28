@@ -131,6 +131,12 @@ class Caribou:
         #        print "--> LEAVE EDITABLE TEXT <--"
 
     def on_key_up(self, event):
+        """Listens for when the dot button (l-shift) and the dash button
+        (r-shift) are released.
+        
+        The morse code tree is traversed on button releases, and leaf nodes
+        of the tree are automatically selected.
+        """
         if event.event_string == "Shift_L":
             self._lctrl_down = False
             if not self._select_state:
@@ -140,8 +146,7 @@ class Caribou:
                     self.mt.reset()
                 self.morse_window.refresh(self.mt.get_current_node())
             elif self._select_state and not self._lsupr_down:
-                self._select_state = False
-                            
+                self._select_state = False             
         elif event.event_string == "Shift_R":
             self._lsupr_down = False    
             if not self._select_state:
@@ -154,7 +159,12 @@ class Caribou:
                 self._select_state = False          
 
     def on_key_down(self, event):
-    
+        """Listens for when the input buttons--the dot button (l-shift), the 
+        dash button (r-shift), and the quit button (r-ctrl)--are pressed.
+        
+        If both the dot and the dash buttons are pressed, the current 
+        character of the morse code tree is selected and the tree is reset.
+        """
         if event.event_string == "Shift_L":
             self._lctrl_down = True
             if self._lsupr_down == True:
@@ -162,7 +172,6 @@ class Caribou:
                 self.send_unicode(self.mt.current_node.value)
                 self.mt.reset()
                 self.morse_window.refresh(self.mt.get_current_node())
-
         elif event.event_string == "Shift_R":
             self._lsupr_down = True
             if self._lctrl_down == True:
@@ -170,7 +179,6 @@ class Caribou:
                 self.send_unicode(self.mt.current_node.value)
                 self.mt.reset()
                 self.morse_window.refresh(self.mt.get_current_node())       
-        
         # key binding for controlling the row column scanning
         if event.event_string == "Shift_R":
             # TODO: implement keyboard scanning
