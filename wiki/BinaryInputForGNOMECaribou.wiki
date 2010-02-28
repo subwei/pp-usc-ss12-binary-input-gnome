@@ -18,4 +18,4 @@ The *Binary Input for GNOME Caribou (BIFGC)* project is intended to combine bina
 
 = Technical Overview =
 
-[http://live.gnome.org/Caribou Caribou] uses the [http://www.gtk.org/ GTK+] toolkit which allows a user to create "graphical user interfaces which boasts cross platform compatibility and an easy to use API."  Caribou is written in the [http://www.python.org/ Python Programming Language] while [http://www.gtk.org/ GTK+] is written in C.  However [http://www.gtk.org/ GTK+] has bindings to languages such as [http://www.python.org/ Python] which allows us to use it with [http://live.gnome.org/Caribou Caribou].
+[http://live.gnome.org/Caribou Caribou] uses the [http://www.gtk.org/ GTK+] toolkit which allows a user to create "graphical user interfaces which boasts cross platform compatibility and an easy to use API."  [http://live.gnome.org/Caribou Caribou] is written in the [http://www.python.org/ Python Programming Language] while [http://www.gtk.org/ GTK+] is written in C.  However [http://www.gtk.org/ GTK+] has bindings to languages such as [http://www.python.org/ Python] which allows us to use it with [http://live.gnome.org/Caribou Caribou].
