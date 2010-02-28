@@ -36,6 +36,7 @@ from caribou.morse_window import MorseWindow
 _ = gettext.gettext
 
 debug = False
+binary = False
 
 class Caribou:
     def __init__(self):
@@ -137,26 +138,27 @@ class Caribou:
         The morse code tree is traversed on button releases, and leaf nodes
         of the tree are automatically selected.
         """
-        if event.event_string == "Shift_L":
-            self._lctrl_down = False
-            if not self._select_state:
-                self.mt.dot()
-                if self.mt.leaf():
-                    self.send_unicode(self.mt.current_node.value)
-                    self.mt.reset()
-                self.morse_window.refresh(self.mt.get_current_node())
-            elif self._select_state and not self._lsupr_down:
-                self._select_state = False             
-        elif event.event_string == "Shift_R":
-            self._lsupr_down = False    
-            if not self._select_state:
-                self.mt.dash()
-                if self.mt.leaf():
-                    self.send_unicode(self.mt.current_node.value)
-                    self.mt.reset()
-                self.morse_window.refresh(self.mt.get_current_node())   
-            elif self._select_state and not self._lctrl_down:
-                self._select_state = False          
+        if binary:
+            if event.event_string == "Shift_L":
+	            self._lctrl_down = False
+	            if not self._select_state:
+		            self.mt.dot()
+		            if self.mt.leaf():
+		                self.send_unicode(self.mt.current_node.value)
+		                self.mt.reset()
+		            self.morse_window.refresh(self.mt.get_current_node())
+	            elif self._select_state and not self._lsupr_down:
+		            self._select_state = False             
+            elif event.event_string == "Shift_R":
+	            self._lsupr_down = False    
+	            if not self._select_state:
+		            self.mt.dash()
+		            if self.mt.leaf():
+		                self.send_unicode(self.mt.current_node.value)
+		                self.mt.reset()
+		            self.morse_window.refresh(self.mt.get_current_node())   
+	            elif self._select_state and not self._lctrl_down:
+		            self._select_state = False          
 
     def on_key_down(self, event):
         """Listens for when the input buttons--the dot button (l-shift), the 
@@ -165,20 +167,21 @@ class Caribou:
         If both the dot and the dash buttons are pressed, the current 
         character of the morse code tree is selected and the tree is reset.
         """
-        if event.event_string == "Shift_L":
-            self._lctrl_down = True
-            if self._lsupr_down == True:
-                self._select_state = True
-                self.send_unicode(self.mt.current_node.value)
-                self.mt.reset()
-                self.morse_window.refresh(self.mt.get_current_node())
-        elif event.event_string == "Shift_R":
-            self._lsupr_down = True
-            if self._lctrl_down == True:
-                self._select_state = True
-                self.send_unicode(self.mt.current_node.value)
-                self.mt.reset()
-                self.morse_window.refresh(self.mt.get_current_node())       
+        if binary:
+            if event.event_string == "Shift_L":
+                self._lctrl_down = True
+                if self._lsupr_down == True:
+                    self._select_state = True
+                    self.send_unicode(self.mt.current_node.value)
+                    self.mt.reset()
+                    self.morse_window.refresh(self.mt.get_current_node())
+            elif event.event_string == "Shift_R":
+                self._lsupr_down = True
+                if self._lctrl_down == True:
+                    self._select_state = True
+                    self.send_unicode(self.mt.current_node.value)
+                    self.mt.reset()
+                    self.morse_window.refresh(self.mt.get_current_node())       
         # key binding for controlling the row column scanning
         if event.event_string == "Shift_R":
             # TODO: implement keyboard scanning
@@ -228,8 +231,8 @@ def usage():
 if __name__ == "__main__":
 
     try:
-        options, xargs = getopt.getopt(sys.argv[1:], "dhv",
-            ["debug", "help", "version"])
+        options, xargs = getopt.getopt(sys.argv[1:], "dbhv",
+            ["debug", "binary", "help", "version"])
     except getopt.GetoptError, e:
         print "Error: " + e.__str__() + "\n"
         usage()
@@ -238,6 +241,9 @@ if __name__ == "__main__":
     for opt, val in options:
         if opt in ("-d", "--debug"):
             debug = True
+
+        if opt in ("-b", "--binary"):
+            binary = True
 
         if opt in ("-h", "--help"):
             usage()
