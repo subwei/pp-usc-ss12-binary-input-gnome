@@ -21,13 +21,13 @@ class ColorHandler:
 	def addButton(self, button, colorOption):
 		label = button.get_label()
 		self.buttonList[label] = button
-		self._doColoring(button, colorOption)
+		self.setColor(button, colorOption)
 
-	def setColor(self, encodedchar, colorOption):
+	def setColorFromEncodedChar(self, encodedchar, colorOption):
 		char = unichr(encodedchar)
-		self._doColoring(self.buttonList.get(char), colorOption)
+		self.setColor(self.buttonList.get(char), colorOption)
 
-	def _doColoring(self, button, colorOption):
+	def setColor(self, button, colorOption):
 		button.modify_bg(gtk.STATE_NORMAL, self.colorMap.get(colorOption))
 		button.modify_bg(gtk.STATE_ACTIVE, self.colorMap.get(colorOption))
 
