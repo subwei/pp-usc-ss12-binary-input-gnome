@@ -1,4 +1,6 @@
 #!/usr/bin/env python
+# This Python file uses the following encoding: utf-8
+
 
 class TreeNode:
     def __init__(self, value):
@@ -36,6 +38,8 @@ class MorseTree:
 
 def get_morse_tree():
     root = TreeNode("")
+
+    # normal alphabet
     node_a = TreeNode("a")
     node_b = TreeNode("b")
     node_c = TreeNode("c")
@@ -62,6 +66,24 @@ def get_morse_tree():
     node_x = TreeNode("x")
     node_y = TreeNode("y")
     node_z = TreeNode("z")
+
+    # numbers
+    node_0 = TreeNode("0")
+    node_1 = TreeNode("1")
+    node_2 = TreeNode("2")
+    node_3 = TreeNode("3")
+    node_4 = TreeNode("4")
+    node_5 = TreeNode("5")
+    node_6 = TreeNode("6")
+    node_7 = TreeNode("7")
+    node_8 = TreeNode("8")
+    node_9 = TreeNode("9")
+
+    # weird characters
+    node_u_umlaut = TreeNode("ü")
+    node_a_umlaut = TreeNode("ä")
+    node_o_umlaut = TreeNode("ö")
+    node_ch = TreeNode("ch")
 
     # first level
     root.left = node_e
@@ -92,16 +114,25 @@ def get_morse_tree():
     node_s.right = node_v
 
     node_u.left = node_f
-    node_u.right = node_u
+    node_u.right = node_u_umlaut
 
     node_r.left = node_l
-    node_r.right = node_a
+    node_r.right = node_a_umlaut
 
-    node_w.left = node_g
-    node_w.right = node_o
+    node_w.left = node_p
+    node_w.right = node_j
 
+    node_d.left = node_b
+    node_d.right = node_x
 
-    morse_tree = MorseTree(root)
+    node_k.left = node_c
+    node_k.right = node_y
 
-    return morse_tree
+    node_g.left = node_z
+    node_g.right = node_q
+
+    node_o.left = node_o_umlaut
+    node_o.right = node_ch
+
+    return MorseTree(root)
 
