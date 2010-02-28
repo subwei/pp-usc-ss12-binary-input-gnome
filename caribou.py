@@ -30,6 +30,7 @@ import gettext
 import getopt
 import sys
 import virtkey
+import time
 from caribou.morsetree import get_morse_tree
 from caribou.morse_window import MorseWindow
 
@@ -43,9 +44,12 @@ class Caribou:
         self.__current_acc = None 
         self.mt = get_morse_tree()
         self.morse_window = MorseWindow()
-        self._lctrl_down = False
-        self._lsupr_down = False
+        self._dot_down = False
+        self._dash_down = False
         self._select_state = False
+        self._firstkeydowntime = 0
+        self._backspace = False
+        self._newline = False
         self.vk = virtkey.virtkey()
 
     def send_unicode(self, key):
@@ -140,24 +144,38 @@ class Caribou:
         """
         if binary:
             if event.event_string == "Shift_L":
-	            self._lctrl_down = False
-	            if not self._select_state:
+                self._dot_down = False
+                if self._backspace == True:
+                    self.vk.press_keysym(0xff08)     # 0xff08 is backspace
+                    self.vk.release_keysym(0xff08)  
+                    self.mt.reset()
+                elif self._newline == True:
+                    self._newline = False  
+                    firstkeydowntime = 0
+                elif self._select_state == False:
 		            self.mt.dot()
 		            if self.mt.leaf():
 		                self.send_unicode(self.mt.current_node.value)
 		                self.mt.reset()
 		            self.morse_window.refresh(self.mt.get_current_node())
-	            elif self._select_state and not self._lsupr_down:
+                elif self._select_state and not self._dash_down:
 		            self._select_state = False             
             elif event.event_string == "Shift_R":
-	            self._lsupr_down = False    
-	            if not self._select_state:
+                self._dash_down = False
+                if self._newline == True:
+                    self.vk.press_keysym(0xff0d)    # 0xff0d is newline
+                    self.vk.release_keysym(0xff0d)
+                    self.mt.reset()
+                elif self._backspace == True:
+                    self._backspace = False
+                    firstkeydowntime = 0    
+                elif self._select_state == False:
 		            self.mt.dash()
 		            if self.mt.leaf():
 		                self.send_unicode(self.mt.current_node.value)
 		                self.mt.reset()
 		            self.morse_window.refresh(self.mt.get_current_node())   
-	            elif self._select_state and not self._lctrl_down:
+                elif self._select_state and not self._dot_down:
 		            self._select_state = False          
 
     def on_key_down(self, event):
@@ -167,25 +185,35 @@ class Caribou:
         If both the dot and the dash buttons are pressed, the current 
         character of the morse code tree is selected and the tree is reset.
         """
-
         if binary:
             if event.event_string == "Shift_L":
-                self._lctrl_down = True
+                self._dot_down = True
                 caribouwindow.tw.refresh(self.mt.get_current_node())
-                if self._lsupr_down == True:
-                    self._select_state = True
-                    self.send_unicode(self.mt.current_node.value)
-                    self.mt.reset()
-                    self.morse_window.refresh(self.mt.get_current_node())
+                if self._dash_down == False:
+                    self._firstkeydowntime = time.time()
+                else:
+                    twokeytime = time.time() - self._firstkeydowntime
+                    if twokeytime < 1:
+                        self._select_state = True
+                        self.send_unicode(self.mt.current_node.value)
+                        self.mt.reset()
+                        self.morse_window.refresh(self.mt.get_current_node())
+                    else:
+                        self._backspace = True
             elif event.event_string == "Shift_R":
-                self._lsupr_down = True
+                self._dash_down = True
                 caribouwindow.tw.refresh(self.mt.get_current_node())
-                if self._lctrl_down == True:
-                    self._select_state = True
-                    self.send_unicode(self.mt.current_node.value)
-                    self.mt.reset()
-                    self.morse_window.refresh(self.mt.get_current_node())       
-
+                if self._dot_down == False:
+                    self._firstkeydowntime = time.time()
+                else:
+                    twokeytime = time.time() - self._firstkeydowntime
+                    if twokeytime < 1:
+                        self._select_state = True
+                        self.send_unicode(self.mt.current_node.value)
+                        self.mt.reset()
+                        self.morse_window.refresh(self.mt.get_current_node())       
+                    else:
+                        self._newline = True
         # key binding for controlling the row column scanning
         if event.event_string == "Shift_R":
             # TODO: implement keyboard scanning
