@@ -25,11 +25,12 @@ The *Binary Input for GNOME Caribou (BIFGC)* (or *Double Dragons*) project is in
 
 [http://img121.imageshack.us/img121/3222/ss12blockdiagram.png]
 
-Our project uses preexisting keyboard listeners already used in Caribou.  We added mappings to the left Ctrl key and the Super Key (the Windows or Apple key) to simulate choosing between a dot or dash in morse code.  We also have a mapping for when both the left Ctrl and Super keys are pressed at the same time, where the current morse code selected character is then inputted into the desired program.  This character input also happens when a user has reached the bottom level of our character decision tree.
+Our project uses preexisting keyboard listeners already used in 
+[http://live.gnome.org/Caribou Caribou].  We added mappings to the left Ctrl key and the Super Key (the Windows or Apple key) to simulate choosing between a dot or dash in morse code.  We also have a mapping for when both the left Ctrl and Super keys are pressed at the same time, where the current morse code selected character is then inputted into the desired program.  This character input also happens when a user has reached the bottom level of our character decision tree.
 
 == PUT A PICTURE OF THE PROGRAM HERE ==
 
-Building off of the pre-existing Caribou keyboard, 
+Building off of the pre-existing [http://live.gnome.org/Caribou Caribou] keyboard, we added an automatic color-coding feature that helps illustrate to the user what they must type in order to get to a letter.  This is implemented with [http://www.gtk.org/ GTK+]'s color options for GUI components.
 
 = Future Improvements =
 
