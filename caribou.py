@@ -125,37 +125,42 @@ class Caribou:
     
         if event.event_string == "Control_L":
             self._lctrl_down = False
-        elif event.event_string == "Super_L":
-            self._lsupr_down = False
-
-    def on_key_down(self, event):
-    
-        if event.event_string == "Control_L":
-            self._lctrl_down = True
-            if self._lsupr_down == True:
-                print "BOTH KEYS ARE DOWN."
-            else:
+            if self._lsupr_down == False:
                 self.mt.dot()
                 if self.mt.leaf():
                     print self.mt
                     self.mt.reset()
                 self.morse_window.refresh(self.mt.get_current_node())
-
+            
         elif event.event_string == "Super_L":
-            self._lsupr_down = True
-            if self._lctrl_down == True:
-                print "BOTH KEYS ARE DOWN."
-            else:
+            self._lsupr_down = False
+            if self._lctrl_down == False:
                 self.mt.dash()
                 if self.mt.leaf():
                     print self.mt
                     self.mt.reset()
                 self.morse_window.refresh(self.mt.get_current_node())
 
-        elif event.event_string == "Escape":
-            print self.mt
-            self.mt.reset()
-            self.morse_window.refresh(self.mt.get_current_node())
+    def on_key_down(self, event):
+    
+        if event.event_string == "Control_L":
+            self._lctrl_down = True
+            if self._lsupr_down == True:
+                print self.mt
+                self.mt.reset()
+                self.morse_window.refresh(self.mt.get_current_node())
+
+        elif event.event_string == "Super_L":
+            self._lsupr_down = True
+            if self._lctrl_down == True:
+                print self.mt
+                self.mt.reset()
+                self.morse_window.refresh(self.mt.get_current_node())               
+
+        #elif event.event_string == "Escape":
+        #    print self.mt
+        #    self.mt.reset()
+        #    self.morse_window.refresh(self.mt.get_current_node())
         
         # key binding for controlling the row column scanning
         if event.event_string == "Shift_R":
