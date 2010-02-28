@@ -50,12 +50,9 @@ class Morse:
                     self._newline = False  
                     firstkeydowntime = 0
                 elif self._select_state == False:
-                    #self.mt.dot()
-                    #if self.mt.leaf():
                     if self.mt.get_current_node().left:
                         self.mt.dot()
                     else:
-                        self.send_unicode(self.mt.current_node.value)
                         self.mt.reset()
                     self._tree_update_callback(self.mt.get_current_node())
                 elif self._select_state and not self._dash_down:
@@ -70,12 +67,9 @@ class Morse:
                     self._backspace = False
                     firstkeydowntime = 0    
                 elif self._select_state == False:
-                    #self.mt.dash()
-                    #if self.mt.leaf():
                     if self.mt.get_current_node().right:
                         self.mt.dash()
                     else:
-                        self.send_unicode(self.mt.current_node.value)
                         self.mt.reset()
                     self._tree_update_callback(self.mt.get_current_node())
                 elif self._select_state and not self._dot_down:
