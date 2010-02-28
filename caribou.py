@@ -41,6 +41,8 @@ class Caribou:
         self.__current_acc = None 
         self.mt = get_morse_tree()
         self.morse_window = MorseWindow()
+        self._lctrl_down = False
+        self._lsupr_down = False
 
     def on_text_caret_moved(self, event):
         if self.__current_acc == event.source:
@@ -119,26 +121,44 @@ class Caribou:
         #        caribouwindow.hide_all()
         #        print "--> LEAVE EDITABLE TEXT <--"
 
-    def on_key_down(self, event):
+    def on_key_up(self, event):
+    
         if event.event_string == "Control_L":
-            self.mt.dot()
-            if self.mt.leaf():
-                print self.mt
-                self.mt.reset()
-            self.morse_window.refresh(self.mt.get_current_node())
+            self._lctrl_down = False
+        elif event.event_string == "Super_L":
+            self._lsupr_down = False
+            
+        print "on_key_up...(lctrl_down: " + format(self._lctrl_down) + ", lsupr_down: " + format(self._lsupr_down) + ")"
+
+    def on_key_down(self, event):
+    
+        if event.event_string == "Control_L":
+            self._lctrl_down = True
+            if self._lsupr_down == True:
+                print "BOTH KEYS ARE DOWN."
+            else:
+                self.mt.dot()
+                if self.mt.leaf():
+                    print self.mt
+                    self.mt.reset()
+                self.morse_window.refresh(self.mt.get_current_node())
 
         elif event.event_string == "Super_L":
-            self.mt.dash()
-            if self.mt.leaf():
-                print self.mt
-                self.mt.reset()
-            self.morse_window.refresh(self.mt.get_current_node())
+            self._lsupr_down = True
+            if self._lctrl_down == True:
+                print "BOTH KEYS ARE DOWN."
+            else:
+                self.mt.dash()
+                if self.mt.leaf():
+                    print self.mt
+                    self.mt.reset()
+                self.morse_window.refresh(self.mt.get_current_node())
 
         elif event.event_string == "Escape":
             print self.mt
             self.mt.reset()
             self.morse_window.refresh(self.mt.get_current_node())
-
+        
         # key binding for controlling the row column scanning
         if event.event_string == "Shift_R":
             # TODO: implement keyboard scanning
@@ -171,7 +191,9 @@ class Caribou:
             if debug == True:
                 print "deregisterKeystrokeListener"
             gtk.main_quit()
-
+            
+        print "on_key_down...(lctrl_down: " + format(self._lctrl_down) + ", lsupr_down: " + format(self._lsupr_down) + ")"
+        
 
 def usage():
     """Prints out usage information."""
@@ -210,6 +232,7 @@ if __name__ == "__main__":
     pyatspi.Registry.registerEventListener(caribou.on_focus, "focus")
     pyatspi.Registry.registerEventListener(caribou.on_text_caret_moved, "object:text-caret-moved")
     pyatspi.Registry.registerKeystrokeListener(caribou.on_key_down, mask=None, kind=(pyatspi.KEY_PRESSED_EVENT,))
+    pyatspi.Registry.registerKeystrokeListener(caribou.on_key_up, mask=None, kind=(pyatspi.KEY_RELEASED_EVENT,))
 
     # TODO: move text entry detection to its own file
 
