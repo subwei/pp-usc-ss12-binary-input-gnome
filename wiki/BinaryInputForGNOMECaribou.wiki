@@ -1,0 +1,20 @@
+#summary General information of the project
+
+= Abstract =
+
+Caribou is a text entry and UI navigation application being developed as an alternative to the Gnome On-screen Keyboard. The overarching goal for Caribou is to create a usable solution for people whose primary way of accessing a computer is a switch device.  Our goal for this project is to allow a user to use a binary input, such as a button, to interface with Caribou rather than with a mouse.
+
+= Overview =
+
+Add your content here.  Format your content with:
+  * Text in *bold* or _italic_
+  * Headings, paragraphs, and lists
+  * Automatic links to other wiki pages
+
+= Team =
+  * John Kim (kim19 at usc dot edu)
+  * Justin Lei (justinyl at usc dot edu)
+  * Matthew Michihara (michihar at usc dot edu)
+  * James Myoung (jkmyoung at usc dot edu)
+  * Benjamin Walker (bwwalker at usc dot edu)
+  * Michael Wei weim (at usc dot edu)
