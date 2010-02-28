@@ -14,8 +14,14 @@
 
 = Overview =
 
-The *Binary Input for GNOME Caribou (BIFGC)* project is intended to combine binary input interface with a morse code functionality.  Unlike a usual On-screen keyboard where a user is expected to mouse over the keys and click them, BIFGC allows a user to type all 26 alphabetic characters with the use of only two keys.  It accomplishes this by allowing the user to instead input dots (·) and dashes (—) as one would in morse code, except with two specified dot and dash buttons.  The user is able to select and type their specified key by simultaneously pressing both buttons.  The user is further helped with the visual aid of a simplified morse-code decision tree as shown [http://gok.ca/morse.html here], as well as a color-coded keyboard that informs the user of whether a dot or a dash is required to eventually get to a certain character.
+The *Binary Input for GNOME Caribou (BIFGC)* project is intended to combine binary input interface with a morse code functionality.  Unlike a usual On-screen keyboard where a user is expected to mouse over the keys and click them, BIFGC allows a user to type all 26 alphabetic characters with the use of only two keys.  It accomplishes this by allowing the user to instead input dots (·) and dashes (—) as one would in morse code, except with two specified dot and dash buttons.  The user is able to select and type their specified key after they are finished "signaling" by simultaneously pressing both buttons.  The user is further helped with the visual aid of a simplified morse-code decision tree as shown [http://gok.ca/morse.html here], as well as a color-coded keyboard that informs the user of whether a dot or a dash is required to eventually get to a certain character.
 
 = Technical Overview =
 
 [http://live.gnome.org/Caribou Caribou] uses the [http://www.gtk.org/ GTK+] toolkit which allows a user to create "graphical user interfaces which boasts cross platform compatibility and an easy to use API."  [http://live.gnome.org/Caribou Caribou] is written in the [http://www.python.org/ Python Programming Language] while [http://www.gtk.org/ GTK+] is written in C.  However, [http://www.gtk.org/ GTK+] has bindings to languages such as [http://www.python.org/ Python] which allows us to use it with [http://live.gnome.org/Caribou Caribou] for all of our additions that make up BIFGC.
+
+= Future Improvements =
+
+#Replace On-screen keyboard with larger, more detailed decision tree.
+#Add support for numbers, punctuation mark, and various other special characters.
+#Add support for non-English keyboard layouts.
