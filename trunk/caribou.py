@@ -127,8 +127,6 @@ class Caribou:
             self._lctrl_down = False
         elif event.event_string == "Super_L":
             self._lsupr_down = False
-            
-        print "on_key_up...(lctrl_down: " + format(self._lctrl_down) + ", lsupr_down: " + format(self._lsupr_down) + ")"
 
     def on_key_down(self, event):
     
@@ -191,9 +189,6 @@ class Caribou:
             if debug == True:
                 print "deregisterKeystrokeListener"
             gtk.main_quit()
-            
-        print "on_key_down...(lctrl_down: " + format(self._lctrl_down) + ", lsupr_down: " + format(self._lsupr_down) + ")"
-        
 
 def usage():
     """Prints out usage information."""
