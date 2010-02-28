@@ -158,13 +158,13 @@ def get_morse_tree():
     node_v.left = node_underscore
     node_v.right = node_3
 
-    #node_quote.left = [nothing]
+    #node_quote.left = nothing
     node_quote.right = node_2
 	
     node_apostrophe.left = node_plus
     node_apostrophe.right = node_dash
 
-    #node_j.left = [nothing]
+    #node_j.left = nothing
     node_j.right = node_1
 
     node_b.left = node_6
