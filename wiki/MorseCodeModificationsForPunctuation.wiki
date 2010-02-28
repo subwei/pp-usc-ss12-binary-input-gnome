@@ -5,15 +5,19 @@ In normal Morse Code, all punctuation requires 6 dots/dashes to reach (for insta
 As such, we have replaced some of the less useful 5-dot/dash characters (namely, the accented ones - characters with umlauts, etc.) with punctuation characters. Following is a list of the new morse code definitions for punctuation:
 
 .-.-. = +
+
 .-.-- = -
 
 .-... = '
+
 .-..- = "
 
 -.-.- = !
+
 -.-.. = ?
 
 --.-. = ;
+
 --.-- = ,
 
 ...-. = .
