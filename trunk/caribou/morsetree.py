@@ -150,6 +150,31 @@ def get_morse_tree():
     node_o.left = node_o_umlaut
     node_o.right = node_ch
     node_o.parent = node_m
+    
+    # fifth level
+    node_h.parent = node_s
+    node_v.parent = node_s
+    
+    node_f.parent = node_u
+    node_u_umlaut.parent = node_u
+    
+    node_l.parent = node_r
+    node_a_umlaut.parent = node_r
+    
+    node_p.parent = node_w
+    node_j.parent = node_w
+    
+    node_b.parent = node_d
+    node_x.parent = node_d
+    
+    node_c.parent = node_k
+    node_y.parent = node_k
+    
+    node_z.parent = node_g
+    node_q.parent = node_g
+    
+    node_o_umlaut.parent = node_o
+    node_ch.parent = node_o
 
     return MorseTree(root)
 
