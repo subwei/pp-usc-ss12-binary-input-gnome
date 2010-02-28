@@ -167,9 +167,11 @@ class Caribou:
         If both the dot and the dash buttons are pressed, the current 
         character of the morse code tree is selected and the tree is reset.
         """
+
         if binary:
             if event.event_string == "Shift_L":
                 self._lctrl_down = True
+                caribouwindow.tw.refresh(self.mt.get_current_node())
                 if self._lsupr_down == True:
                     self._select_state = True
                     self.send_unicode(self.mt.current_node.value)
@@ -177,11 +179,13 @@ class Caribou:
                     self.morse_window.refresh(self.mt.get_current_node())
             elif event.event_string == "Shift_R":
                 self._lsupr_down = True
+                caribouwindow.tw.refresh(self.mt.get_current_node())
                 if self._lctrl_down == True:
                     self._select_state = True
                     self.send_unicode(self.mt.current_node.value)
                     self.mt.reset()
                     self.morse_window.refresh(self.mt.get_current_node())       
+
         # key binding for controlling the row column scanning
         if event.event_string == "Shift_R":
             # TODO: implement keyboard scanning

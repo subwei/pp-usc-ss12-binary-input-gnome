@@ -23,8 +23,10 @@ import gconf
 import gtk
 import gtk.gdk as gdk
 import keyboard
+import morse_window
+import treeWindow
 import opacity
-
+    
 class CaribouWindow(gtk.Window):
     __gtype_name__ = "CaribouWindow"
 
@@ -33,12 +35,19 @@ class CaribouWindow(gtk.Window):
         super(CaribouWindow, self).__init__(gtk.WINDOW_POPUP)
         self.set_name("CaribouWindow")
 
-        self._vbox = gtk.VBox()
-        self.add(self._vbox)
+        self._hbox = gtk.HBox()
+        self.add(self._hbox)
 
         # we only have a keyboard widget right now
-        self._vbox.pack_start(keyboard.CaribouKeyboard())
+        self._hbox.pack_start(keyboard.CaribouKeyboard())
 
+        # decision tree widget
+        #label = gtk.Label("Hello World")
+        #label.set_alignment(0, 0)
+        self.tw = treeWindow.TreeWindow()
+        self._hbox.pack_start(self.tw)
+        #label.show()
+        
         self.connect("size-allocate", lambda w, a: self._update_position())
         self._gconf_client = gconf.client_get_default()
 
@@ -46,6 +55,8 @@ class CaribouWindow(gtk.Window):
         self._entry_location = gdk.Rectangle()
         self._default_placement = default_placement or \
             CaribouWindowPlacement()
+        
+       
         
     def set_cursor_location(self, cursor_location):
         self._cursor_location = cursor_location
@@ -58,7 +69,26 @@ class CaribouWindow(gtk.Window):
     def set_default_placement(self, default_placement):
         self._default_placement = default_placement
         self._update_position()
-
+        
+    def refreshTree(self, currentNode):
+        self.tw.refresh(currentNode)
+        if currentNode != None:
+            self.colorKeys(currentNode)
+	          
+            if currentNode.left != None:
+                self.morseLeft.set_label(currentNode.left.value)
+            else:
+                self.morseLeft.set_label("")
+                   
+            if currentNode.right != None:
+                self.rightChild.set_label(currentNode.right.value)
+            else:
+                self.morseRight.set_label("")
+        else:
+            self.morseRoot.set_label("")
+            self.morseLeft.set_label("")
+            self.morseRight.set_label("")
+    
     def _get_root_bbox(self):
         root_window = gdk.get_default_root_window()
         args = root_window.get_position() + root_window.get_size()
@@ -126,7 +156,6 @@ class CaribouWindow(gtk.Window):
 
         return offset
 
-
 class CaribouWindowDocked(CaribouWindow, 
                           animation.AnimatedWindowBase,
                           opacity.ProximityWindowBase):
@@ -191,6 +220,9 @@ class CaribouWindowEntry(CaribouWindow):
 
         return offset
 
+    def printHello(self):
+        print("Hello World")
+        
 class CaribouWindowPlacement(object):
     START = 'start'
     END = 'end'
@@ -218,7 +250,7 @@ class CaribouWindowPlacement(object):
 
         def get_offset(self, bbox):
             return bbox.x if self.axis == 'x' else bbox.y
-
+            
         def get_length(self, bbox):
             return bbox.width if self.axis == 'x' else bbox.height
 
