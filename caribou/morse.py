@@ -92,7 +92,7 @@ class Morse:
                     self._firstkeydowntime = time.time()
                 else:
                     twokeytime = time.time() - self._firstkeydowntime
-                    if twokeytime < 0.5:
+                    if twokeytime < 0.25:
                         self._select_state = True
                         self.send_unicode(self.mt.current_node.value)
                         self.mt.reset()
@@ -107,7 +107,7 @@ class Morse:
                     self._firstkeydowntime = time.time()
                 else:
                     twokeytime = time.time() - self._firstkeydowntime
-                    if twokeytime < 0.5:
+                    if twokeytime < 0.25:
                         self._select_state = True
                         self.send_unicode(self.mt.current_node.value)
                         self.mt.reset()
