@@ -158,6 +158,7 @@ class Caribou:
 		                self.send_unicode(self.mt.current_node.value)
 		                self.mt.reset()
 		            self.morse_window.refresh(self.mt.get_current_node())
+		            caribouwindow.tw.refresh(self.mt.get_current_node())
                 elif self._select_state and not self._dash_down:
 		            self._select_state = False             
             elif event.event_string == "Shift_R":
@@ -174,7 +175,8 @@ class Caribou:
 		            if self.mt.leaf():
 		                self.send_unicode(self.mt.current_node.value)
 		                self.mt.reset()
-		            self.morse_window.refresh(self.mt.get_current_node())   
+		            self.morse_window.refresh(self.mt.get_current_node())
+		            caribouwindow.tw.refresh(self.mt.get_current_node())
                 elif self._select_state and not self._dot_down:
 		            self._select_state = False          
 
