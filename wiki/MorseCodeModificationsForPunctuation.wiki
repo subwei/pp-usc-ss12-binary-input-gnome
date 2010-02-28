@@ -1,4 +1,6 @@
-So Binary Caribou uses a slightly modified version of Morse Code.
+#summary Information of our modified morse code language
+
+Binary Caribou uses a slightly modified version of Morse Code.
 
 In normal Morse Code, all punctuation requires 6 dots/dashes to reach (for instance, "!" is -.-.--) because really, punctuation isn't that important to convey in speech (and in general, Morse Code is used to replace speech). The thing is, punctuation is important on keyboards!
 
