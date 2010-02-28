@@ -22,6 +22,6 @@ The *Binary Input for GNOME Caribou (BIFGC)* project is intended to combine bina
 
 = Future Improvements =
 
-#Replace On-screen keyboard with larger, more detailed decision tree.
-#Add support for numbers, punctuation mark, and various other special characters.
-#Add support for non-English keyboard layouts.
+  #Replace On-screen keyboard with larger, more detailed decision tree.
+  #Add support for numbers, punctuation mark, and various other special characters.
+  #Add support for non-English keyboard layouts.
