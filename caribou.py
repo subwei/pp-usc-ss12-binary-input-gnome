@@ -30,6 +30,8 @@ import gettext
 import getopt
 import sys
 
+from caribou.morsetree import get_morse_tree
+
 _ = gettext.gettext
 
 debug = False
@@ -37,6 +39,7 @@ debug = False
 class Caribou:
     def __init__(self):
         self.__current_acc = None 
+	self.mt = get_morse_tree()
 
     def on_text_caret_moved(self, event):
         if self.__current_acc == event.source:
@@ -116,6 +119,22 @@ class Caribou:
         #        print "--> LEAVE EDITABLE TEXT <--"
 
     def on_key_down(self, event):
+        if event.event_string == "Control_L":
+	    self.mt.dot()
+	    if self.mt.leaf():
+            	print self.mt
+		self.mt.reset()
+
+	elif event.event_string == "Super_L":
+	    self.mt.dash()
+	    if self.mt.leaf():
+            	print self.mt
+		self.mt.reset()
+
+	elif event.event_string == "Escape":
+	    print self.mt
+	    self.mt.reset()
+
         # key binding for controlling the row column scanning
         if event.event_string == "Shift_R":
             # TODO: implement keyboard scanning
