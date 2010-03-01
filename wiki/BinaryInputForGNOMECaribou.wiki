@@ -33,7 +33,7 @@ python Caribou.py -b
 or
 python Caribou.py --binary
 
-Then after selecting the desired program to input to,  morse code is used to select the character you wish to output to the screen. A dot is represented by the left 'Ctrl' key and a dash is represented by the 'Super' key (the Windows or Apple key). The currently selected character will be displayed at the top of the tree to the right of the keyboard. To accept the selected character and output it to the screen, simply press both the dot and the dash keys at once.
+Then after selecting the desired program to input to,  morse code is used to navigate the [http://code.google.com/p/pp-usc-ss12-binary-input-gnome/wiki/MorseCodeModificationsForPunctuation morse code tree] to select the character you wish to output to the screen. A dot is represented by the left 'Ctrl' key and a dash is represented by the 'Super' key (the Windows or Apple key). The currently selected character will be displayed at the top of the tree to the right of the keyboard. To accept the selected character and output it to the screen, simply press both the dot and the dash keys at once.
 
 To backspace, hold the dash key and tap the dot key. Each tap will delete one character to the left of the caret.
 
