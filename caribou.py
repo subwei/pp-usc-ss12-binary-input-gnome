@@ -34,12 +34,14 @@ import time
 from caribou.morse import Morse
 _ = gettext.gettext
 debug = False
+binary = False
 
 class Caribou:
     def __init__(self):
         self.__current_acc = None 
-        self._morse = Morse()
-        self._morse.registerListener(caribouwindow.update)
+        if binary == True:
+            self._morse = Morse()
+            self._morse.registerListener(caribouwindow.update)
 
     def on_text_caret_moved(self, event):
         if self.__current_acc == event.source:
@@ -119,10 +121,12 @@ class Caribou:
         #        print "--> LEAVE EDITABLE TEXT <--"
 
     def on_key_up(self, event):
-        self._morse.key_up(event)
+        if binary == True:
+            self._morse.key_up(event)
 
     def on_key_down(self, event):
-        self._morse.key_down(event)
+        if binary == True:
+            self._morse.key_down(event)
         # key binding for controlling the row column scanning
         if event.event_string == "Shift_R":
             # TODO: implement keyboard scanning
@@ -165,6 +169,7 @@ def usage():
     print "  " + sys.argv[0] + _(" [OPTION...]")
     print
     print _("Help Options:")
+    print "  -b, --binary                     " + _("Enable binary input mode")
     print "  -d, --debug                      " + _("Print debug messages on stdout")
     print "  -h, --help                       " + _("Show this help message")
     print "  -v, --version                    " + _("Display version")
@@ -172,14 +177,17 @@ def usage():
 if __name__ == "__main__":
 
     try:
-        options, xargs = getopt.getopt(sys.argv[1:], "dbhv",
-            ["debug", "binary", "help", "version"])
+        options, xargs = getopt.getopt(sys.argv[1:], "bdhv",
+            ["binary", "debug", "help", "version"])
     except getopt.GetoptError, e:
         print "Error: " + e.__str__() + "\n"
         usage()
         sys.exit(1)
  
     for opt, val in options:
+        if opt in ("-b", "--binary"):
+            binary = True
+
         if opt in ("-d", "--debug"):
             debug = True
 
