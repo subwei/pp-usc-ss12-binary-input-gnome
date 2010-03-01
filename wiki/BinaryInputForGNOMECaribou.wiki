@@ -21,7 +21,7 @@ The *Binary Input for GNOME Caribou (BIFGC)* (or *Double Dragons*) project is in
 
 = How to Use this Program =
 
-Usually when Caribou is used, it is evoked from the command line by the following:
+Usually when [http://live.gnome.org/Caribou Caribou] is used, it is evoked from the command line by the following:
 
 python Caribou.py
 
