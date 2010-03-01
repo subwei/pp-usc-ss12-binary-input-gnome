@@ -60,4 +60,4 @@ Building off of the pre-existing [http://live.gnome.org/Caribou Caribou] keyboar
   # Replace On-screen keyboard with a larger, more detailed decision tree.
   # Add support for numbers, punctuation marks, and various other special characters.
   # Add support for non-English keyboard layouts.
-  # Add support for capslock/shift.
+  # Add support for caps-lock/shift.
