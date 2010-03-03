@@ -165,6 +165,7 @@ class CaribouKeyboard(gtk.Frame):
                         rowhbox.pack_start(button, expand = False, fill = True)
 
                     layervbox.pack_start(rowhbox, expand = False, fill = True)
+		    
 
         def _open_prefs(self, widget):
             KeyboardPreferences()

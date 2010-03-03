@@ -34,6 +34,8 @@ class Morse:
         self.newline = False
         self.vk = virtkey.virtkey()
         self.morse_enabled = True
+
+	
         
         # The following is a hack to make this program initially type with
         # lower-case letters instead of upper-case; because we're using
@@ -50,6 +52,9 @@ class Morse:
 
     def registerListener(self, callback):
         self.tree_update_callback = callback
+
+    def fireToListener(self):
+	self.tree_update_callback(self.mt.get_current_node())
 
     def enable(self):
         self.morse_enabled = True

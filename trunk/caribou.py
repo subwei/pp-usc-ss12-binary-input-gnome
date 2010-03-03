@@ -42,6 +42,7 @@ class Caribou:
         if binary == True:
             self._morse = Morse()
             self._morse.registerListener(caribouwindow.update)
+	    self._morse.fireToListener() #get the caribouwindow to do everything on startup
 
     def on_text_caret_moved(self, event):
         if self.__current_acc == event.source:
