@@ -39,6 +39,8 @@ To backspace, hold the dash key and tap the dot key. Each tap will delete one ch
 
 To enter a newline, hold the dot key and tap the dash key. Each tap will output one newline.
 
+To switch to uppercase, hold both the dot key and the dash key for >0.5 seconds. Repeat to switch back.
+
 = Technical Overview =
 
 [http://live.gnome.org/Caribou Caribou] uses the [http://www.gtk.org/ GTK+] toolkit which allows a user to create "graphical user interfaces which boasts cross platform compatibility and an easy to use API."  [http://live.gnome.org/Caribou Caribou] is written in the [http://www.python.org/ Python Programming Language] while [http://www.gtk.org/ GTK+] is written in C.  However, [http://www.gtk.org/ GTK+] has bindings to languages such as [http://www.python.org/ Python] which allows us to use it with [http://live.gnome.org/Caribou Caribou] for all of our additions that make up BIFGC.
