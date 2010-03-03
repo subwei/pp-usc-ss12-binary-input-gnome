@@ -47,7 +47,7 @@ class Morse:
         The morse code tree is traversed on button releases, and backspaces
         are entered by holding dash (r-shift) and tapping dot (l-shift). Also,
         newlines are entered by holding dot (l-shift) and tapping dash 
-        (r-shift)
+        (r-shift). Hold both buttons together for >0.5 seconds to toggle caps.
         """
         if self._morse_enabled == True:
             if event.event_string == "Shift_L":
