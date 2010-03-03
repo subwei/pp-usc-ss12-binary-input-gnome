@@ -45,12 +45,47 @@ class ColorHandler:
 				button.modify_bg(gtk.STATE_NORMAL, self.colorMap.get(colorOption))
 				button.modify_bg(gtk.STATE_ACTIVE, self.colorMap.get(colorOption))
 
+
+	    	def colorKeys(self, startingNode):
+			self.colorAll(ColorOptions.standard) #Reset all colors to gray
+			self.setColorFromChar(startingNode.value.lower(), 
+				ColorOptions.morseCurrentNode) #color our current node in lowercase
+			self.setColorFromChar(startingNode.value.capitalize(), 
+				ColorOptions.morseCurrentNode) #color our current node in uppercase
+			leftNode = startingNode.left
+			rightNode = startingNode.right
+
+			if leftNode != None:
+		    		self.setColorFromChar(leftNode.value.lower(), 
+					ColorOptions.morseLeftNode) #color our direct descendant in lowercase
+			    	self.setColorFromChar(leftNode.value.capitalize(), 
+					ColorOptions.morseLeftNode) #color our direct descendant in uppercase
+		    		self.recursiveColorNodes(leftNode, ColorOptions.morseLeftNode) #and color its descendants
+			if rightNode != None:
+		    		self.setColorFromChar(rightNode.value.lower(), 
+					ColorOptions.morseRightNode) #color our direct descendant in lowercase
+		    		self.setColorFromChar(rightNode.value.capitalize(), 
+					ColorOptions.morseRightNode) #color our direct descendant in uppercase
+		    		self.recursiveColorNodes(rightNode, ColorOptions.morseRightNode) #and color its descendants
+
+
+	    	def recursiveColorNodes(self, startingNode, color):
+			if startingNode.left != None: #If we have an instantiated node to go to
+				self.setColorFromChar(startingNode.left.value.lower(), color)
+		    		self.setColorFromChar(startingNode.left.value.capitalize(), color)
+		    		self.recursiveColorNodes(startingNode.left, color)
+			if startingNode.right != None: #If we have an instantiated node to go to
+		    		self.setColorFromChar(startingNode.right.value.lower(), color)
+		    		self.setColorFromChar(startingNode.right.value.capitalize(), color)
+		    		self.recursiveColorNodes(startingNode.right, color)
+
+
+
     	# storage for the instance reference
     	__instance = None
 
-	 
-
-
+	
+	#the following is all stuff related to making ColorHandler be a singleton
 	def __init__(self):
 	        """ Create singleton instance """
 	        # Check whether we already have an instance
