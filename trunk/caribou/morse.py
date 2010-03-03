@@ -12,14 +12,22 @@ class Morse:
         self._dash_down = False
         self._select_state = False
         self._firstkeydowntime = 0
+        self._twokeys_starttime = 0
         self._backspace = False
         self._newline = False
         self.vk = virtkey.virtkey()
         self._morse_enabled = True
+        
+        # The following is a hack to make this program initially type with
+        # lower-case letters instead of upper-case; because we're using
+        # l-shift and r-shift as our two buttons, it capitalizes whatever
+        # we type. We'll start with caps-lock on to reverse that.
+        self.vk.press_keycode(66)    # 66 is capslock
+        self.vk.release_keycode(66)
 
     def send_unicode(self, key):
         if len(key) == 1:
-            char = ord(key.upper().decode('utf-8'))
+            char = ord(key.decode('utf-8'))
             self.vk.press_unicode(char)
             self.vk.release_unicode(char)
 
@@ -36,8 +44,10 @@ class Morse:
         """Listens for when the dot button (l-shift) and the dash button
         (r-shift) are released.
         
-        The morse code tree is traversed on button releases, and leaf nodes
-        of the tree are automatically selected.
+        The morse code tree is traversed on button releases, and backspaces
+        are entered by holding dash (r-shift) and tapping dot (l-shift). Also,
+        newlines are entered by holding dot (l-shift) and tapping dash 
+        (r-shift)
         """
         if self._morse_enabled == True:
             if event.event_string == "Shift_L":
@@ -55,8 +65,13 @@ class Morse:
                     else:
                         self.mt.reset()
                     self._tree_update_callback(self.mt.get_current_node())
-                elif self._select_state and not self._dash_down:
-                    self._select_state = False             
+                elif self._select_state == True and self._dash_down == False:
+                    self._select_state = False  
+                    if (time.time() - self._twokeys_starttime) > 0.5:
+                        self.vk.press_keysym(0xff08)     # 0xff08 is backspace
+                        self.vk.release_keysym(0xff08)
+                        self.vk.press_keycode(66)   # 66 is capslock
+                        self.vk.release_keycode(66)          
             elif event.event_string == "Shift_R":
                 self._dash_down = False
                 if self._newline == True:
@@ -72,8 +87,13 @@ class Morse:
                     else:
                         self.mt.reset()
                     self._tree_update_callback(self.mt.get_current_node())
-                elif self._select_state and not self._dot_down:
+                elif self._select_state == True and self._dot_down == False:
                     self._select_state = False
+                    if (time.time() - self._twokeys_starttime) > 0.5:
+                        self.vk.press_keysym(0xff08)     # 0xff08 is backspace
+                        self.vk.release_keysym(0xff08)
+                        self.vk.press_keycode(66)   # 66 is capslock
+                        self.vk.release_keycode(66)
 
     def key_down(self, event):
         """Listens for when the input buttons--the dot button (l-shift), the 
@@ -88,6 +108,7 @@ class Morse:
                 if self._dash_down == False:
                     self._firstkeydowntime = time.time()
                 else:
+                    self._twokeys_starttime = time.time()
                     twokeytime = time.time() - self._firstkeydowntime
                     if twokeytime < 0.25:
                         self._select_state = True
@@ -101,6 +122,7 @@ class Morse:
                 if self._dot_down == False:
                     self._firstkeydowntime = time.time()
                 else:
+                    self._twokeys_starttime = time.time()
                     twokeytime = time.time() - self._firstkeydowntime
                     if twokeytime < 0.25:
                         self._select_state = True
