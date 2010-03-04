@@ -1,0 +1,3 @@
+#summary Screencast showing you how to use Caribou with Binary Input
+
+[http://vimeo.com/9920630 Click here to view our video (Google's wiki doesn't support Vimeo video, but they have the best quality, grrr)]
