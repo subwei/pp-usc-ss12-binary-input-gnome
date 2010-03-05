@@ -1,3 +1,5 @@
 #summary Screencast showing you how to use Caribou with Binary Input
 
 <wiki:video url="http://www.youtube.com/watch?v=Jv-RbJv2p3Y">
+
+[http://www.youtube.com/watch?v=Jv-RbJv2p3Y Click here to see this video at Youtube]
