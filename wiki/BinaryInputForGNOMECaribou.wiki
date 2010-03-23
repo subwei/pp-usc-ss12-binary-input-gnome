@@ -21,6 +21,9 @@ The *Binary Input for GNOME Caribou (BIFGC)* (or *Double Dragons*) project is in
 
 [http://img121.imageshack.us/img121/3222/ss12blockdiagram.png]
 
+Keyboard without mini-tree
+[http://imgur.com/LvgCZ.png]
+
 = How to Use this Program =
 
 Usually when [http://live.gnome.org/Caribou Caribou] is used, it is evoked from the command line by the following:
