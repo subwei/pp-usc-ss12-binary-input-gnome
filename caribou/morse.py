@@ -26,7 +26,6 @@
 import virtkey
 import time
 from morsetree import get_morse_tree
-from keyboard import KeyboardPreferences
 
 class Morse:
     """Traverses and selects from the morse tree according to user input.
@@ -58,26 +57,13 @@ class Morse:
         self.newline = False
         self.vk = virtkey.virtkey()
         self.morse_enabled = True
-
-	
         
         # The following is a hack to make this program initially type with
         # lower-case letters instead of upper-case; because we're using
         # l-shift and r-shift as our two buttons, it capitalizes whatever
         # we type. We'll start with caps-lock on to reverse that.
-        #self.vk.press_keycode(66)    # 66 is capslock
-        #self.vk.release_keycode(66)
-
-    def send_unicode(self, key):
-        if len(key) == 1:
-            char = ord(key.decode('utf-8'))
-            self.vk.press_unicode(char)
-            self.vk.release_unicode(char)
-        elif key == "pf":
-            KeyboardPreferences()
-        elif key == "num_punct":
-            self.vk.press_keysym(key)
-            self.vk.release_keysym(key) 
+        self.vk.press_keycode(66)    # 66 is capslock
+        self.vk.release_keycode(66)
 
     def registerListener(self, callback):
         self.tree_update_callback = callback
@@ -166,6 +152,7 @@ class Morse:
                         #self.send_unicode(self.mt.current_node.value)
                         self.tree_update_callback(self.mt.get_current_node(), True)
                         self.mt.reset()
+                        self.tree_update_callback(self.mt.get_current_node(), False)
                     else:
                         self.backspace = True
             elif event.event_string == "Shift_R":
@@ -180,6 +167,7 @@ class Morse:
                         #self.send_unicode(self.mt.current_node.value)
                         self.tree_update_callback(self.mt.get_current_node(), True)
                         self.mt.reset()
+                        self.tree_update_callback(self.mt.get_current_node(), False)
                     else:
                         self.newline = True
 

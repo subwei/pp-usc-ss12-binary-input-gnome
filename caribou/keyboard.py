@@ -135,7 +135,7 @@ class CaribouKeyboard(gtk.Frame):
                                                        gtk.ICON_SIZE_BUTTON))
                                 button.set_image(image)
                                 button.connect("clicked", self._open_prefs)
-                                self.colorHandler.addButton(button, "pf");
+                                self.colorHandler.addButton(button, key);
                             else:
                                 # single utf-8 character key
                                 button = gtk.Button(key)
@@ -143,14 +143,13 @@ class CaribouKeyboard(gtk.Frame):
 
                                 char = ord(key.decode('utf-8'))
                                 button.connect("clicked", self._send_unicode, char)
-                                self.colorHandler.addButton(button, button.get_label());
+                                self.colorHandler.addButton(button, key);
                         elif isinstance(key, tuple):
                             button = gtk.Button(key[0])
                             button.set_use_underline(False)
 
                             # check if this key is a layer switch key or not
                             if isinstance(key[1], str):
-                                print key[1]
                                 # switch layer key
                                 # set layer name on button and save to process later
                                 button.set_name(key[1])

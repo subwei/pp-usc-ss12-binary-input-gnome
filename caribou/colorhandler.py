@@ -26,9 +26,7 @@ class ColorHandler:
     def execute(self, node):
         button = self.buttonList.get(node.value)
         if button != None:
-            print "clicked"
             button.clicked()
-            #button.clicked()
 
     def addButton(self, button, label):
         if self.buttonList.get(label) == None:
