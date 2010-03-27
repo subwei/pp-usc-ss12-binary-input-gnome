@@ -58,10 +58,11 @@ class CaribouWindow(gtk.Window):
         self._default_placement = default_placement or \
             CaribouWindowPlacement()
 
-    def update(self, node):
+    def update(self, node, isExecute):
         self.tw.refresh(node)
         self.colorHandler.colorKeys(node)
-
+        if isExecute == True:
+            self.colorHandler.execute(node)
 
     def set_cursor_location(self, cursor_location):
         self._cursor_location = cursor_location
