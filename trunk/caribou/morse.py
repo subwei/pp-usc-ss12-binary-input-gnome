@@ -1,8 +1,32 @@
-#!/usr/bin/python
+# -*- coding: utf-8 -*-
+#
+# Caribou - text entry and UI navigation application
+#
+# Copyright (C) 2010 John Kim <kim19@usc.edu>
+# Copyright (C) 2010 Justin Lei <justinyl@usc.edu>
+# Copyright (C) 2010 Matthew Michihara <michihar@usc.edu>
+# Copyright (C) 2010 James Myoung <jkmyoung@usc.edu>
+# Copyright (C) 2010 Benjamin Walker <bwwalker@usc.edu>
+# Copyright (C) 2010 Michael Wei <mikejwei@gmail.com>
+#
+# This program is free software; you can redistribute it and/or modify it
+# under the terms of the GNU Lesser General Public License as published by the
+# Free Software Foundation; either version 2.1 of the License, or (at your
+# option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but WITHOUT
+# ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+# FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Lesser General Public License
+# for more details.
+#
+# You should have received a copy of the GNU Lesser General Public License
+# along with this program; if not, write to the Free Software Foundation,
+# Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 import virtkey
 import time
 from morsetree import get_morse_tree
+from keyboard import KeyboardPreferences
 
 class Morse:
     """Traverses and selects from the morse tree according to user input.
@@ -41,20 +65,25 @@ class Morse:
         # lower-case letters instead of upper-case; because we're using
         # l-shift and r-shift as our two buttons, it capitalizes whatever
         # we type. We'll start with caps-lock on to reverse that.
-        self.vk.press_keycode(66)    # 66 is capslock
-        self.vk.release_keycode(66)
+        #self.vk.press_keycode(66)    # 66 is capslock
+        #self.vk.release_keycode(66)
 
     def send_unicode(self, key):
         if len(key) == 1:
             char = ord(key.decode('utf-8'))
             self.vk.press_unicode(char)
             self.vk.release_unicode(char)
+        elif key == "pf":
+            KeyboardPreferences()
+        elif key == "num_punct":
+            self.vk.press_keysym(key)
+            self.vk.release_keysym(key) 
 
     def registerListener(self, callback):
         self.tree_update_callback = callback
 
     def fireToListener(self):
-	self.tree_update_callback(self.mt.get_current_node())
+        self.tree_update_callback(self.mt.get_current_node(), False)
 
     def enable(self):
         self.morse_enabled = True
@@ -86,7 +115,7 @@ class Morse:
                         self.mt.dot()
                     else:
                         self.mt.reset()
-                    self.tree_update_callback(self.mt.get_current_node())
+                    self.tree_update_callback(self.mt.get_current_node(), False)
                 elif self.select_state == True and self.dash_down == False:
                     self.select_state = False  
                     if (time.time() - self.twokeys_starttime) > 0.5:
@@ -108,7 +137,7 @@ class Morse:
                         self.mt.dash()
                     else:
                         self.mt.reset()
-                    self.tree_update_callback(self.mt.get_current_node())
+                    self.tree_update_callback(self.mt.get_current_node(), False)
                 elif self.select_state == True and self.dot_down == False:
                     self.select_state = False
                     if (time.time() - self.twokeys_starttime) > 0.5:
@@ -134,9 +163,9 @@ class Morse:
                     twokeytime = time.time() - self.firstkeydowntime
                     if twokeytime < 0.25:
                         self.select_state = True
-                        self.send_unicode(self.mt.current_node.value)
+                        #self.send_unicode(self.mt.current_node.value)
+                        self.tree_update_callback(self.mt.get_current_node(), True)
                         self.mt.reset()
-                        self.tree_update_callback(self.mt.get_current_node())
                     else:
                         self.backspace = True
             elif event.event_string == "Shift_R":
@@ -148,9 +177,9 @@ class Morse:
                     twokeytime = time.time() - self.firstkeydowntime
                     if twokeytime < 0.25:
                         self.select_state = True
-                        self.send_unicode(self.mt.current_node.value)
+                        #self.send_unicode(self.mt.current_node.value)
+                        self.tree_update_callback(self.mt.get_current_node(), True)
                         self.mt.reset()
-                        self.tree_update_callback(self.mt.get_current_node())
                     else:
                         self.newline = True
 
